@@ -13,6 +13,7 @@ const RootStack = () => {
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
+            height: 50,
           },
         }}
       >

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList, StatusBar } from 'react-native';
 import CardSream from '../components/CardSream';
 import axios from 'axios';
 
@@ -11,7 +11,8 @@ const Home = () => {
   });
 
   const renderCard = ({ item }) => (
-    <View style={{ flex: 1, paddingHorizontal: 10 }}>
+    <View style={{ flex: 1, marginHorizontal: 10 }}>
+      <StatusBar hidden />
       <CardSream
         title={item.userHandle}
         comment={item.komenCount}
