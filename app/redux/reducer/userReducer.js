@@ -7,7 +7,7 @@ export const UNLIKE_STREAM = 'UNLIKE_STREAM';
 export const MARK_NOTIF = 'MARK_NOTIF';
 
 const initialState = {
-  autentikasi: false,
+  autentikasi: null,
   credentials: {},
   loading: false,
   likes: [],
@@ -19,7 +19,7 @@ export const userReducer = (state = initialState, action) => {
     case SET_AUTH:
       return {
         ...state,
-        autentikasi: true,
+        autentikasi: action.payload,
       };
     case SET_UNAUTH:
       return initialState;

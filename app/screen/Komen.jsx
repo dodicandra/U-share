@@ -47,7 +47,7 @@ const Komen = ({ route, navigation }) => {
   );
 
   const submitKomen = () => {
-    if (auth.autentikasi) {
+    if (auth.autentikasi !== null) {
       console.log('HAI');
     } else {
       navigation.navigate('Profile');
