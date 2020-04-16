@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, FlatList, StatusBar } from 'react-native';
+import React, { useEffect, useState, useReducer } from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  StatusBar,
+  ActivityIndicator,
+} from 'react-native';
 import CardSream from '../components/CardSream';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getStreams } from '../redux/actions/dataActions';
 
 const Home = () => {
-  const [data, setData] = useState();
+  const dataR = useSelector((state) => state.data);
+  console.log(dataR.streams);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getData();
-  });
+    dispatch(getStreams());
+  }, []);
 
   const renderCard = ({ item }) => (
     <View style={{ flex: 1, marginHorizontal: 10 }}>
@@ -23,26 +32,20 @@ const Home = () => {
     </View>
   );
 
-  const getData = async () => {
-    try {
-      const res = await axios.get('/stream');
-      const result = await res.data;
-      setData(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <View style={styles.container}>
-      <FlatList
-        maxToRenderPerBatch={10}
-        centerContent={true}
-        showsVerticalScrollIndicator={false}
-        data={data}
-        renderItem={renderCard}
-        keyExtractor={(item) => item.streamId}
-      />
+      {dataR.loading ? (
+        <ActivityIndicator size="large" color="red" />
+      ) : (
+        <FlatList
+          maxToRenderPerBatch={10}
+          centerContent={true}
+          showsVerticalScrollIndicator={false}
+          data={dataR.streams}
+          renderItem={renderCard}
+          keyExtractor={(item) => item.streamId}
+        />
+      )}
     </View>
   );
 };
