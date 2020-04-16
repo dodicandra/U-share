@@ -26,6 +26,12 @@ export const dataReducer = (state = initialState, action) => {
         streams: action.payload,
         loading: false,
       };
+    case SET_STREAM:
+      return {
+        ...state,
+        stream: action.payload,
+        loading: false,
+      };
     default:
       return state;
   }

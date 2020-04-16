@@ -10,9 +10,8 @@ import CardSream from '../components/CardSream';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStreams } from '../redux/actions/dataActions';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const dataR = useSelector((state) => state.data);
-  console.log(dataR.streams);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,6 +27,8 @@ const Home = () => {
         like={item.likeCount}
         body={item.body}
         images={item.userImage}
+        pressKomen={() => navigation.navigate('Komens', item)}
+        disabled={false}
       />
     </View>
   );

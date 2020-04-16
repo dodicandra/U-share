@@ -1,10 +1,19 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
 import * as Icons from '@expo/vector-icons';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('screen');
 
-const CardSream = ({ title, images, body, like, comment }) => {
+const CardSream = ({
+  title,
+  images,
+  body,
+  like,
+  comment,
+  pressKomen,
+  disabled,
+}) => {
   return (
     <View style={styles.container}>
       <View style={{ ...styles.wraperImg, flex: 0.6 }}>
@@ -15,19 +24,25 @@ const CardSream = ({ title, images, body, like, comment }) => {
         <Text>{body}</Text>
       </View>
       <View style={styles.wraperIcon}>
-        <View style={styles.wraperLike}>
-          <View style={{ ...styles.row, ...styles.center }}>
-            <Icons.AntDesign name="hearto" size={12} />
-            <Text style={styles.teks}>{like} Likes</Text>
+        {disabled ? (
+          <View />
+        ) : (
+          <View style={styles.wraperLike}>
+            <View style={{ ...styles.row, ...styles.center }}>
+              <Icons.AntDesign name="hearto" size={12} />
+              <Text style={styles.teks}>{like} Likes</Text>
+            </View>
+            <TouchableOpacity onPress={pressKomen}>
+              <View style={{ ...styles.row, ...styles.center }}>
+                <Icons.MaterialIcons name="comment" size={12} />
+                <Text style={styles.teks}>{comment} comments</Text>
+              </View>
+            </TouchableOpacity>
+            <View>
+              <Text>2 jam lalu</Text>
+            </View>
           </View>
-          <View style={{ ...styles.row, ...styles.center }}>
-            <Icons.MaterialIcons name="comment" size={12} />
-            <Text style={styles.teks}>{comment} comments</Text>
-          </View>
-          <View>
-            <Text>2 jam lalu</Text>
-          </View>
-        </View>
+        )}
       </View>
     </View>
   );
