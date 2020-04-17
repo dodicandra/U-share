@@ -1,15 +1,22 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, View, Dimensions, ActivityIndicator } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Dimensions,
+  ActivityIndicator,
+  Text as Teks,
+} from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
 import * as Icons from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../redux/actions/userActions';
 import ProfileCom from '../components/ProfileCom';
+import Eyes from '../components/Eyes';
 
 const { width } = Dimensions.get('screen');
 
-const Profle = () => {
+const Profle = ({ navigation }) => {
   const auth = useSelector((state) => state.user);
   const UI = useSelector((state) => state.UI);
   const dispatch = useDispatch();
@@ -21,17 +28,16 @@ const Profle = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  const Eyes = () => (
-    <TouchableOpacity
+  const shown = () => (
+    <Eyes
       onPress={() =>
-        setHiden(() => ({
+        setHiden({
           ...hiden,
           hides: !hiden.hides,
-        }))
+        })
       }
-    >
-      <Icons.Entypo name={!hiden.hides ? 'eye' : 'eye-with-line'} size={17} />
-    </TouchableOpacity>
+      eyeOpen={hiden.hides}
+    />
   );
 
   const handleLogin = () => {
@@ -82,7 +88,7 @@ const Profle = () => {
               onChangeText={(tek) => setPassword(tek)}
               secureTextEntry={hiden.hides}
               placeholder="Password"
-              rightIcon={Eyes}
+              rightIcon={shown}
               errorMessage={UI.errors && UI.errors.password}
             />
             <Button
@@ -96,6 +102,11 @@ const Profle = () => {
                 color: 'red',
               }}
             />
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+              <Teks style={{ textAlign: 'center' }}>
+                Belum Punya akun? Register Sekarang
+              </Teks>
+            </TouchableOpacity>
           </View>
         )}
       </View>
