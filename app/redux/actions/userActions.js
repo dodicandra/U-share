@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { LOADING_UI, STOP_LOADING_UI } from '../reducer/uiReducer';
+import {
+  LOADING_UI,
+  STOP_LOADING_UI,
+  SET_ERROR_UI,
+  CLEAR_ERROR_UI,
+} from '../reducer/uiReducer';
 import { SET_AUTH, SET_UNAUTH } from '../reducer/userReducer';
 import { AsyncStorage } from 'react-native';
 
@@ -10,9 +15,10 @@ export const login = (userData) => async (dispatch) => {
     const res = await response.data;
     await setOtorisasi(res.token);
     dispatch({ type: SET_AUTH });
-    dispatch({ type: STOP_LOADING_UI });
+    dispatch({ type: CLEAR_ERROR_UI });
   } catch (error) {
     console.log(error.response.data);
+    dispatch({ type: SET_ERROR_UI, payload: error.response.data });
     dispatch({ type: STOP_LOADING_UI });
   }
 };
@@ -23,9 +29,10 @@ export const logout = () => async (dispatch) => {
     await AsyncStorage.removeItem('token');
     delete axios.defaults.headers['Authorization'];
     dispatch({ type: SET_UNAUTH });
-    dispatch({ type: STOP_LOADING_UI });
+    dispatch({ type: CLEAR_ERROR_UI });
   } catch (error) {
     console.log(error);
+    dispatch({ type: SET_ERROR_UI, payload: error.response.data });
     dispatch({ type: STOP_LOADING_UI });
   }
 };
