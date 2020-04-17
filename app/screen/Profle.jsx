@@ -1,18 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
-  StyleSheet,
-  View,
-  Dimensions,
   ActivityIndicator,
+  Dimensions,
+  StyleSheet,
   Text as Teks,
+  View,
 } from 'react-native';
-import { Input, Button, Text } from 'react-native-elements';
-import * as Icons from '@expo/vector-icons';
+import { Button, Input, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, logout } from '../redux/actions/userActions';
-import ProfileCom from '../components/ProfileCom';
 import Eyes from '../components/Eyes';
+import ProfileCom from '../components/ProfileCom';
+import { login, logout } from '../redux/actions/userActions';
 
 const { width } = Dimensions.get('screen');
 
@@ -20,7 +19,6 @@ const Profle = ({ navigation }) => {
   const auth = useSelector((state) => state.user);
   const UI = useSelector((state) => state.UI);
   const dispatch = useDispatch();
-
   const [hiden, setHiden] = useState({ hides: true });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -57,7 +55,13 @@ const Profle = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.inputWraper}>
         {auth.autentikasi !== null ? (
-          <View>
+          <View
+            style={{
+              display: 'flex',
+              flex: 1,
+              marginTop: 30,
+            }}
+          >
             <ProfileCom />
             <Button
               disabled={UI.loading}
@@ -71,7 +75,7 @@ const Profle = ({ navigation }) => {
           <View style={styles.inputWraper}>
             {UI.errors && (
               <Text style={{ textAlign: 'center', color: 'red' }}>
-                {UI.errors.message}
+                {UI.errors.General}
               </Text>
             )}
             <Input
@@ -122,7 +126,8 @@ const styles = StyleSheet.create({
   },
   inputWraper: {
     width: width - 10,
-    height: 250,
+    height: 400,
+    display: 'flex',
     justifyContent: 'space-evenly',
   },
 });

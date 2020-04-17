@@ -2,6 +2,7 @@ export const SET_USER = 'SET_USER';
 export const SET_AUTH = 'SET_AUTH';
 export const SET_UNAUTH = 'SET_UNAUTH';
 export const LOADING_USER = 'LOADING_USER';
+export const STOP_LOADING_USER = 'STOP_LOADING_USER';
 export const LIKE_STREAM = 'LIKE_STREAM';
 export const UNLIKE_STREAM = 'UNLIKE_STREAM';
 export const MARK_NOTIF = 'MARK_NOTIF';
@@ -33,6 +34,17 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+      };
+    case STOP_LOADING_USER:
+      return {
+        ...state,
+        loading: false,
+      };
+    case SET_USER:
+      return {
+        ...state,
+        loading: false,
+        ...action.payload,
       };
     default:
       return state;

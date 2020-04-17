@@ -1,25 +1,24 @@
+import * as Icons from '@expo/vector-icons';
 import React, { useEffect } from 'react';
 import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
   ActivityIndicator,
-  FlatList,
-  ScrollView,
   Dimensions,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
   TextInput,
+  View,
 } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import * as Icons from '@expo/vector-icons';
-import { getStream } from '../redux/actions/dataActions';
-import CardSream from '../components/CardSream';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import CardSream from '../components/CardSream';
+import { getStream } from '../redux/actions/dataActions';
 
 const { width } = Dimensions.get('screen');
 
 const Komen = ({ route, navigation }) => {
-  const { streamId, userImage } = route.params;
+  const { streamId, userImage, body } = route.params;
 
   const dataR = useSelector((state) => state.data);
   const UI = useSelector((state) => state.UI);
@@ -56,7 +55,12 @@ const Komen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <CardSream images={userImage} title={stream.userHandle} disabled={true} />
+      <CardSream
+        images={userImage}
+        title={stream.userHandle}
+        disabled={true}
+        body={body}
+      />
       {UI.loading ? (
         <ActivityIndicator size="large" color="red" />
       ) : (
@@ -75,7 +79,7 @@ const Komen = ({ route, navigation }) => {
               placeholder="Type Hire.."
             />
             <TouchableOpacity onPress={submitKomen}>
-              <Icons.FontAwesome style={styles.icons} name="send" size={17} />
+              <Icons.FontAwesome style={styles.icons} name="send" size={25} />
             </TouchableOpacity>
           </View>
         </View>
@@ -101,7 +105,7 @@ const styles = StyleSheet.create({
   },
   imgKomen: { width: 30, height: 30, borderRadius: 100 },
   icons: {
-    marginRight: 10,
+    marginRight: 20,
   },
   inputWraper: {
     flexDirection: 'row',
@@ -112,7 +116,7 @@ const styles = StyleSheet.create({
   input: {
     fontSize: 18,
     padding: 4,
-    width: '90%',
+    width: '80%',
     display: 'flex',
   },
 });

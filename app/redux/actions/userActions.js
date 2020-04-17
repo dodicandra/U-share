@@ -5,7 +5,13 @@ import {
   SET_ERROR_UI,
   CLEAR_ERROR_UI,
 } from '../reducer/uiReducer';
-import { SET_AUTH, SET_UNAUTH } from '../reducer/userReducer';
+import {
+  SET_AUTH,
+  SET_UNAUTH,
+  LOADING_USER,
+  SET_USER,
+  STOP_LOADING_USER,
+} from '../reducer/userReducer';
 import { AsyncStorage } from 'react-native';
 
 export const login = (userData) => async (dispatch) => {
@@ -34,6 +40,19 @@ export const logout = () => async (dispatch) => {
     console.log(error);
     dispatch({ type: SET_ERROR_UI, payload: error.response.data });
     dispatch({ type: STOP_LOADING_UI });
+  }
+};
+
+export const getUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_USER });
+    const response = await axios.get('/user');
+    const res = await response.data;
+    dispatch({ type: SET_USER, payload: res });
+  } catch (error) {
+    console.log('ACTION :', error.response.data);
+    dispatch({ type: SET_ERROR_UI, payload: error.response.data });
+    dispatch({ type: STOP_LOADING_USER });
   }
 };
 

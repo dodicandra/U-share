@@ -24,11 +24,7 @@ export const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        errors: {
-          email: action.payload.email,
-          password: action.payload.password,
-          message: action.payload.General,
-        },
+        errors: action.payload,
       };
     case CLEAR_ERROR_UI:
       return {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import Eyes from '../components/Eyes';
 
 const { width } = Dimensions.get('screen');

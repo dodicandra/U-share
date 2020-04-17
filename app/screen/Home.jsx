@@ -1,18 +1,19 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect } from 'react';
 import {
-  StyleSheet,
-  View,
+  ActivityIndicator,
   FlatList,
   StatusBar,
-  ActivityIndicator,
+  StyleSheet,
+  View,
 } from 'react-native';
-import CardSream from '../components/CardSream';
 import { useDispatch, useSelector } from 'react-redux';
+import CardSream from '../components/CardSream';
 import { getStreams } from '../redux/actions/dataActions';
 
 const Home = ({ navigation }) => {
   const dataR = useSelector((state) => state.data);
   const dispatch = useDispatch();
+  console.log('DATA :', dataR);
 
   useEffect(() => {
     dispatch(getStreams());
