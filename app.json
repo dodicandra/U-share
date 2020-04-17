@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "U-share",
-    "slug": "U-share",
+    "name": "U-share v.1.5",
+    "slug": "u-sharev",
     "platforms": [
       "ios",
       "android",
@@ -24,6 +24,6 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "V.1.1"
+    "description": "V.1.5"
   }
 }

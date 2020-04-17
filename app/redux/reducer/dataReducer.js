@@ -14,6 +14,7 @@ const initialState = {
 };
 
 export const dataReducer = (state = initialState, action) => {
+  var index;
   switch (action.type) {
     case LOADING_DATA:
       return {
@@ -31,6 +32,26 @@ export const dataReducer = (state = initialState, action) => {
         ...state,
         stream: action.payload,
         loading: false,
+      };
+    case SUBMIT_COMMEN:
+      return {
+        ...state,
+        stream: {
+          ...state.stream,
+          komen: [action.payload, ...state.stream.komen],
+        },
+      };
+    case LIKE_STREAM:
+    case UNLIKE_STREAM:
+      index = state.streams.findIndex(
+        (stream) => stream.streamId === action.payload.streamId
+      );
+      state.streams[index] = action.payload;
+      if (state.stream.streamId === action.payload.streamId) {
+        state.stream = action.payload;
+      }
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,5 +1,5 @@
 import * as Icons from '@expo/vector-icons';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -13,13 +13,13 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import CardSream from '../components/CardSream';
-import { getStream } from '../redux/actions/dataActions';
+import { getStream, komenSBT } from '../redux/actions/dataActions';
 
 const { width } = Dimensions.get('screen');
 
 const Komen = ({ route, navigation }) => {
   const { streamId, userImage, body } = route.params;
-
+  const [koment, setKoment] = useState('');
   const dataR = useSelector((state) => state.data);
   const UI = useSelector((state) => state.UI);
   const auth = useSelector((state) => state.user);
@@ -46,8 +46,12 @@ const Komen = ({ route, navigation }) => {
   );
 
   const submitKomen = () => {
+    const data = {
+      body: koment,
+    };
+
     if (auth.autentikasi !== null) {
-      console.log('HAI');
+      dispatch(komenSBT(streamId, data));
     } else {
       navigation.navigate('Profile');
     }
@@ -77,6 +81,7 @@ const Komen = ({ route, navigation }) => {
               multiline={true}
               style={styles.input}
               placeholder="Type Hire.."
+              onChangeText={(teks) => setKoment(teks)}
             />
             <TouchableOpacity onPress={submitKomen}>
               <Icons.FontAwesome style={styles.icons} name="send" size={25} />

@@ -1,8 +1,15 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Dimensions,
+  ScrollView,
+} from 'react-native';
 import * as Icons from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { LikeBtn, KomenBtn } from './LikeBtn';
 const { width } = Dimensions.get('screen');
 
 const CardSream = ({
@@ -13,6 +20,8 @@ const CardSream = ({
   comment,
   pressKomen,
   disabled,
+  streamId,
+  navigation,
 }) => {
   return (
     <View style={styles.container}>
@@ -20,21 +29,21 @@ const CardSream = ({
         <Image style={styles.image} source={{ uri: images }} />
         <Text style={styles.title}>{title}</Text>
       </View>
-      <View style={{ flex: 2, marginTop: 10 }}>
-        <Text>{body}</Text>
-      </View>
+      <ScrollView style={styles.bodyWraper}>
+        <Text style={styles.teksBody}>{body}</Text>
+      </ScrollView>
       <View style={styles.wraperIcon}>
         {disabled ? (
           <View />
         ) : (
           <View style={styles.wraperLike}>
             <View style={{ ...styles.row, ...styles.center }}>
-              <Icons.AntDesign name="hearto" size={12} />
+              <LikeBtn navigation={navigation} streamId={streamId} />
               <Text style={styles.teks}>{like} Likes</Text>
             </View>
             <TouchableOpacity onPress={pressKomen}>
               <View style={{ ...styles.row, ...styles.center }}>
-                <Icons.MaterialIcons name="comment" size={12} />
+                <KomenBtn />
                 <Text style={styles.teks}>{comment} comments</Text>
               </View>
             </TouchableOpacity>
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+    overflow: 'hidden',
   },
   teks: {
     marginLeft: 6,
@@ -98,6 +108,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     letterSpacing: 2,
+  },
+  bodyWraper: {
+    flex: 2,
+    marginTop: 10,
+    display: 'flex',
+    overflow: 'hidden',
+  },
+  teksBody: {
+    fontWeight: '500',
+    letterSpacing: 2,
+    fontSize: 22,
   },
 });
 

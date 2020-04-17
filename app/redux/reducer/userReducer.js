@@ -46,6 +46,24 @@ export const userReducer = (state = initialState, action) => {
         loading: false,
         ...action.payload,
       };
+    case LIKE_STREAM:
+      return {
+        ...state,
+        likes: [
+          ...state.likes,
+          {
+            userHandle: state.credentials.handle,
+            streamId: action.payload.streamId,
+          },
+        ],
+      };
+    case UNLIKE_STREAM:
+      return {
+        ...state,
+        likes: state.likes.filter(
+          (like) => like.streamId !== action.payload.streamId
+        ),
+      };
     default:
       return state;
   }

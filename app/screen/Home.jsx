@@ -13,7 +13,6 @@ import { getStreams } from '../redux/actions/dataActions';
 const Home = ({ navigation }) => {
   const dataR = useSelector((state) => state.data);
   const dispatch = useDispatch();
-  console.log('DATA :', dataR);
 
   useEffect(() => {
     dispatch(getStreams());
@@ -30,6 +29,8 @@ const Home = ({ navigation }) => {
         images={item.userImage}
         pressKomen={() => navigation.navigate('Komens', item)}
         disabled={false}
+        streamId={item.streamId}
+        navigation={navigation}
       />
     </View>
   );
