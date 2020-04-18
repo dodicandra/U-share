@@ -50,7 +50,6 @@ export const getUser = () => async (dispatch) => {
     const res = await response.data;
     dispatch({ type: SET_USER, payload: res });
   } catch (error) {
-    console.log('ACTION :', error.response.data);
     dispatch({ type: SET_ERROR_UI, payload: error.response.data });
     dispatch({ type: STOP_LOADING_USER });
   }

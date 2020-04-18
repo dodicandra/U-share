@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,8 @@ import {
 import * as Icons from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { LikeBtn, KomenBtn } from './LikeBtn';
+import { useSelector, useDispatch } from 'react-redux';
+import { getStream } from '../redux/actions/dataActions';
 const { width } = Dimensions.get('screen');
 
 const CardSream = ({
@@ -23,11 +25,29 @@ const CardSream = ({
   streamId,
   navigation,
 }) => {
+  const auth = useSelector((state) => state.user);
+  const data = useSelector((state) => state.data);
+  const dispatch = useDispatch();
+  const {
+    autentikasi,
+    credentials: { handle },
+  } = auth;
+
+  const deletBtn =
+    autentikasi !== null && handle === title ? (
+      <View style={styles.Trash}>
+        <TouchableOpacity>
+          <Icons.Entypo name="trash" color="red" size={20} />
+        </TouchableOpacity>
+      </View>
+    ) : null;
+
   return (
     <View style={styles.container}>
       <View style={{ ...styles.wraperImg, flex: 0.6 }}>
         <Image style={styles.image} source={{ uri: images }} />
         <Text style={styles.title}>{title}</Text>
+        {deletBtn}
       </View>
       <ScrollView style={styles.bodyWraper}>
         <Text style={styles.teksBody}>{body}</Text>
@@ -119,6 +139,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     letterSpacing: 2,
     fontSize: 22,
+  },
+  Trash: {
+    position: 'absolute',
+    right: 2,
+    bottom: 4,
   },
 });
 

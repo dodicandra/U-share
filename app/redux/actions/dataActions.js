@@ -6,6 +6,8 @@ import {
   SUBMIT_COMMEN,
   LIKE_STREAM,
   UNLIKE_STREAM,
+  POST_STREAM,
+  DELETE_STREAM,
 } from '../reducer/dataReducer';
 import {
   LOADING_UI,
@@ -26,27 +28,27 @@ export const getStreams = () => async (dispatch) => {
 };
 
 // singel
-export const getStream = (id) => async (dispatch) => {
+export const getStream = (streamId) => async (dispatch) => {
   try {
     dispatch({ type: LOADING_UI });
-    const response = await axios.get(`/stream/${id}`);
+    const response = await axios.get(`/stream/${streamId}`);
     const res = await response.data;
     dispatch({ type: SET_STREAM, payload: res });
     dispatch({ type: STOP_LOADING_UI });
   } catch (error) {
     console.log(error.response.data);
     dispatch({ type: SET_STREAM, payload: [] });
+    dispatch({ type: STOP_LOADING_UI });
   }
 };
 
 export const komenSBT = (streamId, data) => async (dispatch) => {
   try {
-    dispatch({ type: LOADING_UI });
+    dispatch({ type: LOADING_DATA });
     const response = await axios.post(`/stream/${streamId}/komen`, data);
     const res = await response.data;
     dispatch({ type: SUBMIT_COMMEN, payload: res });
     dispatch(getStreams());
-    dispatch({ type: STOP_LOADING_UI });
   } catch (error) {
     const err = error.response.data;
     console.log(err);
@@ -72,5 +74,28 @@ export const unlikeAction = (streamId) => async (dispatch) => {
     dispatch({ type: UNLIKE_STREAM, payload: res });
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const postAction = (data) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_UI });
+    const response = await axios.post('/stream', data);
+    const res = await response.data;
+    dispatch({ type: POST_STREAM, payload: res });
+    dispatch({ type: STOP_LOADING_UI });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const deleteAction = (streamId) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_UI });
+    const response = await axios.delete(`/stream/${streamId}`);
+    const res = await response.data;
+    dispatch({ type: DELETE_STREAM, payload: res });
+  } catch (err) {
+    console.log(err);
   }
 };

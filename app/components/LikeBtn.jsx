@@ -21,7 +21,6 @@ export const LikeBtn = ({ streamId, navigation }) => {
   };
 
   const unLikeStream = () => {
-    console.log('UN');
     dispatch(unlikeAction(streamId));
   };
 

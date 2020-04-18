@@ -3,6 +3,7 @@ export const SET_STREAM = 'SET_STREAM';
 export const LIKE_STREAM = 'LIKE_STREAM';
 export const UNLIKE_STREAM = 'UNLIKE_STREAM';
 export const LOADING_DATA = 'LOADING_DATA';
+export const STOP_LOADING_DATA = 'STOP_LOADING_DATA';
 export const DELETE_STREAM = 'DELETE_STREAM';
 export const POST_STREAM = 'POST_STREAM';
 export const SUBMIT_COMMEN = 'SUBMIT_COMMEN';
@@ -21,6 +22,11 @@ export const dataReducer = (state = initialState, action) => {
         ...state,
         loading: true,
       };
+    case STOP_LOADING_DATA:
+      return {
+        ...state,
+        loading: false,
+      };
     case SET_STREAMS:
       return {
         ...state,
@@ -36,6 +42,7 @@ export const dataReducer = (state = initialState, action) => {
     case SUBMIT_COMMEN:
       return {
         ...state,
+        loading: false,
         stream: {
           ...state.stream,
           komen: [action.payload, ...state.stream.komen],
@@ -50,6 +57,19 @@ export const dataReducer = (state = initialState, action) => {
       if (state.stream.streamId === action.payload.streamId) {
         state.stream = action.payload;
       }
+      return {
+        ...state,
+      };
+    case POST_STREAM:
+      return {
+        ...state,
+        streams: [action.payload, ...state.streams],
+      };
+    case DELETE_STREAM:
+      index = state.streams.findIndex(
+        (stream) => stream.streamId === action.payload
+      );
+      state.streams.splice(index, 1);
       return {
         ...state,
       };
