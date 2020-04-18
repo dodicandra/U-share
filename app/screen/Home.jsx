@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Dimensions,
   FlatList,
   StatusBar,
   StyleSheet,
   View,
-  Dimensions,
 } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import { useDispatch, useSelector } from 'react-redux';
-import { Overlay, Text, Input, Button } from 'react-native-elements';
-import CardSream from '../components/CardSream';
-import {
-  getStreams,
-  postAction,
-  getStream,
-} from '../redux/actions/dataActions';
 import AddStream from '../components/AddStream';
+import CardSream from '../components/CardSream';
 import Modal from '../components/Modal';
+import { getStreams, postAction } from '../redux/actions/dataActions';
 
 const { width } = Dimensions.get('screen');
 
@@ -26,11 +22,6 @@ const Home = ({ navigation }) => {
   const dataR = useSelector((state) => state.data);
   const UI = useSelector((state) => state.UI);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getStreams());
-    // dispatch(getStream(dataR.streams.streamId));
-  }, []);
-
   const submitStream = async () => {
     const data = {
       body: post,
@@ -39,6 +30,10 @@ const Home = ({ navigation }) => {
     await dispatch(postAction(data));
     setShow(false);
   };
+
+  useEffect(() => {
+    dispatch(getStreams());
+  }, []);
 
   const renderCard = ({ item }) => (
     <View style={{ flex: 1, marginHorizontal: 10 }}>
@@ -54,6 +49,7 @@ const Home = ({ navigation }) => {
         streamId={item.streamId}
         navigation={navigation}
         userHandle={item.userHandle}
+        createAt={item.createAt}
       />
     </View>
   );

@@ -29,7 +29,6 @@ export const uiReducer = (state = initialState, action) => {
     case CLEAR_ERROR_UI:
       return {
         ...state,
-        loading: false,
         errors: null,
       };
     default:

@@ -48,7 +48,7 @@ export const komenSBT = (streamId, data) => async (dispatch) => {
     const response = await axios.post(`/stream/${streamId}/komen`, data);
     const res = await response.data;
     dispatch({ type: SUBMIT_COMMEN, payload: res });
-    dispatch(getStreams());
+    dispatch(getStream(res.streamId));
   } catch (error) {
     const err = error.response.data;
     console.log(err);

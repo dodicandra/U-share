@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
 import * as Icons from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ButtonGroup, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { LikeBtn, KomenBtn } from './LikeBtn';
-import { useSelector, useDispatch } from 'react-redux';
-import { getStream } from '../redux/actions/dataActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteAction } from '../redux/actions/dataActions';
+import { KomenBtn, LikeBtn } from './LikeBtn';
+import Modal from './Modal';
+import momen from 'moment';
 const { width } = Dimensions.get('screen');
 
 const CardSream = ({
@@ -24,6 +20,7 @@ const CardSream = ({
   disabled,
   streamId,
   navigation,
+  createAt,
 }) => {
   const auth = useSelector((state) => state.user);
   const data = useSelector((state) => state.data);
@@ -33,14 +30,33 @@ const CardSream = ({
     credentials: { handle },
   } = auth;
 
+  const [show, setShow] = useState(false);
+
+  const deleteStream = async () => {
+    await dispatch(deleteAction(streamId));
+    setShow(false);
+  };
+
   const deletBtn =
     autentikasi !== null && handle === title ? (
       <View style={styles.Trash}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setShow(true)}>
           <Icons.Entypo name="trash" color="red" size={20} />
         </TouchableOpacity>
       </View>
     ) : null;
+
+  const BTN1 = () => (
+    <Text onPress={() => setShow(false)} h4>
+      cancel
+    </Text>
+  );
+  const BTN2 = () => (
+    <Text onPress={deleteStream} h4>
+      delete
+    </Text>
+  );
+  const buttons = [{ element: BTN1 }, { element: BTN2 }];
 
   return (
     <View style={styles.container}>
@@ -48,6 +64,9 @@ const CardSream = ({
         <Image style={styles.image} source={{ uri: images }} />
         <Text style={styles.title}>{title}</Text>
         {deletBtn}
+        <Modal isVisible={show} onBackdropPress={() => setShow(false)}>
+          <ButtonGroup buttons={buttons} containerStyle={{ height: 50 }} />
+        </Modal>
       </View>
       <ScrollView style={styles.bodyWraper}>
         <Text style={styles.teksBody}>{body}</Text>
@@ -59,16 +78,16 @@ const CardSream = ({
           <View style={styles.wraperLike}>
             <View style={{ ...styles.row, ...styles.center }}>
               <LikeBtn navigation={navigation} streamId={streamId} />
-              <Text style={styles.teks}>{like} Likes</Text>
+              <Text style={styles.teks}>{like} Suka</Text>
             </View>
             <TouchableOpacity onPress={pressKomen}>
               <View style={{ ...styles.row, ...styles.center }}>
                 <KomenBtn />
-                <Text style={styles.teks}>{comment} comments</Text>
+                <Text style={styles.teks}>{comment} Komen</Text>
               </View>
             </TouchableOpacity>
             <View>
-              <Text>2 jam lalu</Text>
+              <Text>{momen(createAt).fromNow(true)}</Text>
             </View>
           </View>
         )}

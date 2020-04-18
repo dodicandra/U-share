@@ -78,7 +78,7 @@ const Komen = ({ route, navigation }) => {
             <TextInput
               multiline={true}
               style={styles.input}
-              placeholder="Type Hire.."
+              placeholder="Lo mau ngomong apa ?..."
               onChangeText={(teks) => setKoment(teks)}
             />
             <TouchableOpacity onPress={submitKomen}>
