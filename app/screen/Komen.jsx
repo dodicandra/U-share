@@ -18,7 +18,7 @@ import { getStream, komenSBT } from '../redux/actions/dataActions';
 const { width } = Dimensions.get('screen');
 
 const Komen = ({ route, navigation }) => {
-  const { streamId, userImage, body } = route.params; // clear
+  const { streamId, userImage, body } = route.params;
   const [koment, setKoment] = useState('');
   const dataR = useSelector((state) => state.data);
   const UI = useSelector((state) => state.UI);

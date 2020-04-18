@@ -38,13 +38,13 @@ const Profle = ({ navigation }) => {
     />
   );
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const data = {
       email: email,
       password: password,
     };
 
-    dispatch(login(data));
+    await dispatch(login(data));
     emailRef.current.clear();
     passwordRef.current.clear();
     setEmail('');
@@ -64,8 +64,8 @@ const Profle = ({ navigation }) => {
           >
             <ProfileCom />
             <Button
-              disabled={UI.loading}
-              loading={UI.loading}
+              disabled={auth.loading}
+              loading={auth.loading}
               loadingProps={{ ...ActivityIndicator, color: 'red' }}
               title="LOGOUT"
               onPress={() => dispatch(logout())}
@@ -99,8 +99,8 @@ const Profle = ({ navigation }) => {
               onPress={handleLogin}
               title="LOGIN"
               type="solid"
-              loading={UI.loading}
-              disabled={UI.loading}
+              loading={auth.loading}
+              disabled={auth.loading}
               loadingProps={{
                 ...ActivityIndicator,
                 color: 'red',

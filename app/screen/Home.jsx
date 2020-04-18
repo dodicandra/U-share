@@ -12,7 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddStream from '../components/AddStream';
 import CardSream from '../components/CardSream';
 import Modal from '../components/Modal';
-import { getStreams, postAction } from '../redux/actions/dataActions';
+import {
+  getStreams,
+  postAction,
+  getStream,
+} from '../redux/actions/dataActions';
 
 const { width } = Dimensions.get('screen');
 
@@ -33,6 +37,9 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getStreams());
+    // dispatch(getStream())
+
+    return getStreams;
   }, []);
 
   const renderCard = ({ item }) => (
@@ -59,7 +66,7 @@ const Home = ({ navigation }) => {
       {dataR.loading ? (
         <ActivityIndicator size="large" color="red" />
       ) : (
-        <View>
+        <View style={{ flex: 1 }}>
           <AddStream onPress={() => setShow(true)} style={styles.Add} />
           <Modal isVisible={show} onBackdropPress={() => setShow(false)}>
             <Input

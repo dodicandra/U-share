@@ -21,6 +21,7 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         autentikasi: action.payload,
+        loading: false,
       };
     case SET_UNAUTH:
       return initialState;
