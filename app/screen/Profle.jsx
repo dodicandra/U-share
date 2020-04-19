@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text as Teks,
   View,
+  AsyncStorage,
 } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -28,7 +29,6 @@ const Profle = ({ navigation }) => {
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
   const shown = () => (
     <Eyes
       onPress={() =>

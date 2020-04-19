@@ -52,7 +52,6 @@ export const logout = () => async (dispatch) => {
     await AsyncStorage.removeItem('token');
     delete axios.defaults.headers['Authorization'];
     dispatch({ type: SET_UNAUTH });
-    dispatch({ type: CLEAR_ERROR_UI });
   } catch (error) {
     console.log(error);
     dispatch({ type: SET_ERROR_UI, payload: error.response.data });

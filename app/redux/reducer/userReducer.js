@@ -27,7 +27,7 @@ export const userReducer = (state = initialState, action) => {
       return initialState;
     case SET_USER:
       return {
-        autentikasi: true,
+        ...state,
         loading: false,
         ...action.payload,
       };
