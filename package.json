@@ -16,6 +16,8 @@
     "axios": "^0.19.2",
     "dayjs": "^1.8.24",
     "expo": "~37.0.3",
+    "expo-ads-admob": "~8.1.0",
+    "expo-device": "~2.1.0",
     "expo-font": "~8.1.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",

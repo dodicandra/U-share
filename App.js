@@ -7,7 +7,6 @@ import { store } from './app/redux/store';
 import jwtDecode from 'jwt-decode';
 import RootStack from './app/router/RootStack';
 import { logout } from './app/redux/actions/userActions';
-
 axios.defaults.baseURL =
   'https://us-central1-appsfirebase-cekidot.cloudfunctions.net/api';
 

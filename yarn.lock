@@ -2357,6 +2357,13 @@ expand-brackets@^2.1.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
+expo-ads-admob@~8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/expo-ads-admob/-/expo-ads-admob-8.1.0.tgz#95290122b90a938a0fa6d9639eeb922c3055077b"
+  integrity sha512-QeKIEaa9UueusO2+YS9Snikn+H/if9zfBLnbOINypG1cx0QX7j8tP3gybmzt4Ra7H3lN1Hbe2Zq06tpaP2ySSw==
+  dependencies:
+    prop-types "^15.6.2"
+
 expo-asset@~8.1.4:
   version "8.1.4"
   resolved "https://registry.yarnpkg.com/expo-asset/-/expo-asset-8.1.4.tgz#5265c28c1c279b2f9779269195bec4caf250ba5d"
@@ -2372,6 +2379,13 @@ expo-constants@~9.0.0:
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-9.0.0.tgz#35c600079ee91d38fe4f56375caae6e90f122fdd"
   integrity sha512-1kqZMM8Ez5JT3sTEx8I69fP6NYFLOJjeM6Z63dD/m2NiwvzSADiO5+BhghnWNGN1L3bxbgOjXS6EHtS7CdSfxA==
+
+expo-device@~2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/expo-device/-/expo-device-2.1.0.tgz#5ef036a3cf358d925d98cedad47d0e6ab1ed9d0f"
+  integrity sha512-qR3+IgX/KOEQQzJ5H76DUU4hL0lqcR3BxL7v2Dg3DEg+O43XxnsbC1105MnbJHUkCQoQJRnh4mSyMx2ADtf3xg==
+  dependencies:
+    ua-parser-js "^0.7.19"
 
 expo-error-recovery@~1.1.0:
   version "1.1.0"
@@ -5273,7 +5287,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-ua-parser-js@^0.7.18:
+ua-parser-js@^0.7.18, ua-parser-js@^0.7.19:
   version "0.7.21"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.21.tgz#853cf9ce93f642f67174273cc34565ae6f308777"
   integrity sha512-+O8/qh/Qj8CgC6eYBVBykMrNtp5Gebn4dlGD/kKXVkJNDwyrAwSIqwz8CDf+tsAIWVycKcku6gIXJ0qwx/ZXaQ==

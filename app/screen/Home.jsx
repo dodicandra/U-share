@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
@@ -37,14 +37,12 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getStreams());
-    // dispatch(getStream())
 
     return getStreams;
   }, []);
 
   const renderCard = ({ item }) => (
     <View style={{ flex: 1, marginHorizontal: 10 }}>
-      <StatusBar hidden />
       <CardSream
         title={item.userHandle}
         comment={item.komenCount}
@@ -69,20 +67,22 @@ const Home = ({ navigation }) => {
         <View style={{ flex: 1 }}>
           <AddStream onPress={() => setShow(true)} style={styles.Add} />
           <Modal isVisible={show} onBackdropPress={() => setShow(false)}>
-            <Input
-              onChangeText={(teks) => setPost(teks)}
-              style={{ marginBottom: 20 }}
-              multiline={true}
-              placeholder="Ceritakan apa yang terjadi.."
-            />
-            <View style={{ height: 30 }} />
-            <Button
-              title="SUBMIT"
-              loading={UI.loading}
-              disabled={UI.loading}
-              loadingProps={{ ...ActivityIndicator, color: 'red' }}
-              onPress={submitStream}
-            />
+            <>
+              <Input
+                onChangeText={(teks) => setPost(teks)}
+                style={{ marginBottom: 20 }}
+                multiline={true}
+                placeholder="Ceritakan sesuatu..."
+              />
+              <View style={{ height: 30 }} />
+              <Button
+                title="SUBMIT"
+                loading={UI.loading}
+                disabled={UI.loading}
+                loadingProps={{ ...ActivityIndicator, color: 'red' }}
+                onPress={submitStream}
+              />
+            </>
           </Modal>
 
           <FlatList

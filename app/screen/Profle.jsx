@@ -12,8 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Eyes from '../components/Eyes';
 import ProfileCom from '../components/ProfileCom';
 import { login, logout } from '../redux/actions/userActions';
+import { AdMobBanner } from 'expo-ads-admob';
+import * as Device from 'expo-device';
 
 const { width } = Dimensions.get('screen');
+const deviceId = Device.osBuildId;
 
 const Profle = ({ navigation }) => {
   const auth = useSelector((state) => state.user);
@@ -53,26 +56,36 @@ const Profle = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputWraper}>
+      <View style={{ ...styles.inputWraper, height: 450 }}>
         {auth.autentikasi !== null ? (
-          <View
-            style={{
-              display: 'flex',
-              flex: 1,
-              marginTop: 30,
-            }}
-          >
-            <ProfileCom />
-            <Button
-              disabled={auth.loading}
-              loading={auth.loading}
-              loadingProps={{ ...ActivityIndicator, color: 'red' }}
-              title="LOGOUT"
-              onPress={() => dispatch(logout())}
-            />
-          </View>
+          <>
+            <View
+              style={{
+                display: 'flex',
+                flex: 1,
+                marginTop: 30,
+              }}
+            >
+              <ProfileCom />
+              <Button
+                disabled={auth.loading}
+                loading={auth.loading}
+                loadingProps={{ ...ActivityIndicator, color: 'red' }}
+                title="LOGOUT"
+                onPress={() => dispatch(logout())}
+              />
+              <View style={{ position: 'absolute', bottom: -170 }}>
+                <AdMobBanner
+                  bannerSize="smartBannerLandscape"
+                  adUnitID="ca-app-pub-8960982869518476/3907988403"
+                  testID={deviceId}
+                  servePersonalizedAds={true}
+                />
+              </View>
+            </View>
+          </>
         ) : (
-          <View style={styles.inputWraper}>
+          <View style={{ ...styles.inputWraper, height: 400 }}>
             {UI.errors && (
               <Text style={{ textAlign: 'center', color: 'red' }}>
                 {UI.errors.General}
@@ -111,6 +124,14 @@ const Profle = ({ navigation }) => {
                 Belum Punya akun? Register Sekarang
               </Teks>
             </TouchableOpacity>
+            <View style={{ position: 'absolute', bottom: -170 }}>
+              <AdMobBanner
+                bannerSize="smartBannerLandscape"
+                adUnitID="ca-app-pub-8960982869518476/3907988403"
+                testID={deviceId}
+                servePersonalizedAds={true}
+              />
+            </View>
           </View>
         )}
       </View>
@@ -126,7 +147,6 @@ const styles = StyleSheet.create({
   },
   inputWraper: {
     width: width - 10,
-    height: 400,
     display: 'flex',
     justifyContent: 'space-evenly',
   },
