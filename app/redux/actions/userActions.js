@@ -11,6 +11,7 @@ import {
   LOADING_USER,
   SET_USER,
   STOP_LOADING_USER,
+  MARK_NOTIF,
 } from '../reducer/userReducer';
 import { AsyncStorage, Alert } from 'react-native';
 
@@ -78,6 +79,17 @@ const setOtorisasi = async (token) => {
     axios.defaults.headers.common['Authorization'] = TOKEN;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const markNotifikasiAction = (data) => async (dispatch) => {
+  try {
+    const response = await axios.post('/notifikasi', data);
+    const res = await response.data;
+    dispatch({ type: MARK_NOTIF });
+    return res;
+  } catch (error) {
+    console.log(error.response.data);
   }
 };
 

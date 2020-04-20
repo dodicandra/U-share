@@ -87,7 +87,9 @@ const CardSream = ({
               </View>
             </TouchableOpacity>
             <View>
-              <Text>{momen(createAt).fromNow(true)}</Text>
+              <Text style={{ color: '#acacac' }}>
+                {momen(createAt).format('DD-MM-YYYY')}
+              </Text>
             </View>
           </View>
         )}

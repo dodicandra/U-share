@@ -65,6 +65,9 @@ export const userReducer = (state = initialState, action) => {
           (like) => like.streamId !== action.payload.streamId
         ),
       };
+    case MARK_NOTIF:
+      state.notifikasi.forEach((not) => not.read == true);
+      return { ...state };
     default:
       return state;
   }
