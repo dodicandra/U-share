@@ -3,6 +3,7 @@ import { StyleSheet, View, Dimensions } from 'react-native';
 import { Avatar, Text, Divider } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../redux/actions/userActions';
+import { useNavigation } from '@react-navigation/native';
 import * as Icons from '@expo/vector-icons';
 
 const { width } = Dimensions.get('screen');
@@ -10,6 +11,7 @@ const { width } = Dimensions.get('screen');
 const ProfileCom = () => {
   const auth = useSelector((state) => state.user);
   const UI = useSelector((state) => state.UI);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const getUserData = () => {
@@ -33,6 +35,9 @@ const ProfileCom = () => {
           showEditButton={true}
           title={
             auth.credentials.handle && auth.credentials.handle.substring(0, 2)
+          }
+          onEditPress={() =>
+            navigation.navigate('EditProfile', auth.credentials)
           }
         />
         <View

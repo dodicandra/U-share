@@ -93,6 +93,29 @@ export const markNotifikasiAction = (data) => async (dispatch) => {
   }
 };
 
+export const editPicAction = (formData) => async (dispatch) => {
+  try {
+    const response = await axios.post('/user/image', formData);
+    const res = await response.data;
+    dispatch(getUser());
+    console.log('KALO SUKSES', res);
+    // return res;
+  } catch (error) {
+    console.log('ERROR', error.response.data);
+    dispatch({ type: STOP_LOADING_USER });
+  }
+};
+
+export const editUserAction = (data) => async (dispatch) => {
+  try {
+    const response = await axios.post('/user', data);
+    const res = await response.data;
+    dispatch(getUser());
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // const showAlert = (navigation) =>
 //   Alert.alert(
 //     'Register success',

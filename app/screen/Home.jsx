@@ -61,11 +61,11 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <AddStream onPress={() => setShow(true)} style={styles.Add} />
       {dataR.loading ? (
         <ActivityIndicator size="large" color="red" />
       ) : (
         <View style={{ flex: 1 }}>
-          <AddStream onPress={() => setShow(true)} style={styles.Add} />
           <Modal isVisible={show} onBackdropPress={() => setShow(false)}>
             <>
               <Input
