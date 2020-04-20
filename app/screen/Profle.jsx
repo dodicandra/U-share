@@ -78,8 +78,8 @@ const Profle = ({ navigation }) => {
                 <AdMobBanner
                   bannerSize="smartBannerLandscape"
                   adUnitID="ca-app-pub-8960982869518476/3907988403"
-                  testID={deviceId}
                   servePersonalizedAds={true}
+                  testID={deviceId}
                 />
               </View>
             </View>

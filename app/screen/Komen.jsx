@@ -13,7 +13,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import CardSream from '../components/CardSream';
-import { getStream, komenSBT } from '../redux/actions/dataActions';
+import { getStream, komenSBT, getStreams } from '../redux/actions/dataActions';
 
 const { width } = Dimensions.get('screen');
 
@@ -38,7 +38,7 @@ const Komen = ({ route, navigation }) => {
         <Text style={{ fontWeight: 'bold', letterSpacing: 2 }}>
           {item.userHandle}
         </Text>
-        <Text>{item.body}</Text>
+        <Text style={{ padding: 5, maxWidth: 300 }}>{item.body}</Text>
       </View>
     </View>
   );
@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
   komenContainer: {
     flexDirection: 'row',
     width: width - 10,
-    height: 50,
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: '#acacac',
