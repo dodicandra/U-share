@@ -1,15 +1,14 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
+  ActivityIndicator,
+  Alert,
   Dimensions,
   StyleSheet,
   View,
-  ActivityIndicator,
-  Alert,
-  Button as Btn,
 } from 'react-native';
 import { Button, Input } from 'react-native-elements';
-import Eyes from '../components/Eyes';
 import { useDispatch, useSelector } from 'react-redux';
+import Eyes from '../components/Eyes';
 import { registerAction } from '../redux/actions/userActions';
 
 const { width } = Dimensions.get('screen');

@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
-import { Avatar, Text, Divider } from 'react-native-elements';
-import { useSelector, useDispatch } from 'react-redux';
-import { getUser } from '../redux/actions/userActions';
-import { useNavigation } from '@react-navigation/native';
 import * as Icons from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Avatar, Divider, Text } from 'react-native-elements';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../redux/actions/userActions';
 
 const { width } = Dimensions.get('screen');
 

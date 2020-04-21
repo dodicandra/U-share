@@ -95,9 +95,14 @@ export const markNotifikasiAction = (data) => async (dispatch) => {
 
 export const editPicAction = (formData) => async (dispatch) => {
   try {
-    const response = await axios.post('/user/image', formData);
+    console.log(formData);
+    const response = await axios.post('/user/image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     const res = await response.data;
-    dispatch(getUser());
+    // dispatch(getUser());
     console.log('KALO SUKSES', res);
     // return res;
   } catch (error) {
