@@ -1,19 +1,14 @@
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+import { CLEAR_ERROR_UI, SET_ERROR_UI } from '../reducer/uiReducer';
 import {
-  LOADING_UI,
-  STOP_LOADING_UI,
-  SET_ERROR_UI,
-  CLEAR_ERROR_UI,
-} from '../reducer/uiReducer';
-import {
+  LOADING_USER,
+  MARK_NOTIF,
   SET_AUTH,
   SET_UNAUTH,
-  LOADING_USER,
   SET_USER,
   STOP_LOADING_USER,
-  MARK_NOTIF,
 } from '../reducer/userReducer';
-import { AsyncStorage, Alert } from 'react-native';
 
 export const login = (userData) => async (dispatch) => {
   try {
@@ -95,29 +90,29 @@ export const markNotifikasiAction = (data) => async (dispatch) => {
 
 export const editPicAction = (formData) => async (dispatch) => {
   try {
-    console.log(formData);
-    const response = await axios.post('/user/image', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    console.log('ACTION', formData);
+    dispatch({ type: LOADING_USER });
+    const response = await axios.post('/user/image', formData);
     const res = await response.data;
-    // dispatch(getUser());
+    dispatch(getUser());
     console.log('KALO SUKSES', res);
     // return res;
   } catch (error) {
-    console.log('ERROR', error.response.data);
+    console.log('ERROR', error);
     dispatch({ type: STOP_LOADING_USER });
   }
 };
 
 export const editUserAction = (data) => async (dispatch) => {
   try {
+    dispatch({ type: LOADING_USER });
     const response = await axios.post('/user', data);
     const res = await response.data;
+    dispatch({ type: STOP_LOADING_USER });
     dispatch(getUser());
   } catch (error) {
     console.log(error);
+    dispatch({ type: STOP_LOADING_USER });
   }
 };
 

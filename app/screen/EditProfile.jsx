@@ -2,9 +2,9 @@ import * as Icons from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { Formik } from 'formik';
-import React, { useState } from 'react';
-import { ActivityIndicator, Platform, StyleSheet, View } from 'react-native';
-import { Avatar, Button, Input, Text } from 'react-native-elements';
+import React from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { Avatar, Button, Input } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { editPicAction, editUserAction } from '../redux/actions/userActions';
@@ -12,8 +12,6 @@ import { editPicAction, editUserAction } from '../redux/actions/userActions';
 const EditProfile = ({ route }) => {
   const { imageUrl, bio, website, location } = route.params;
   const navigation = useNavigation();
-
-  const [imagedata, setImageData] = useState('');
 
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -28,7 +26,16 @@ const EditProfile = ({ route }) => {
       });
 
       if (!res.cancelled) {
-        await formData(res);
+        let pathName = res.uri.split('/');
+        let fileName = pathName[pathName.length - 1];
+        let newData = {
+          uri: res.uri,
+          type: `image/png`,
+          name: fileName,
+        };
+
+        await formData(newData);
+        navigation.navigate('Profiles');
       }
     } catch (error) {
       console.log(error);
@@ -36,28 +43,9 @@ const EditProfile = ({ route }) => {
   };
 
   const formData = async (photo) => {
-    const part = photo.uri.split('/');
-    const fileName = part[part.length - 1];
-    const filetype = fileName.split('.');
-    const type = filetype[filetype.length - 1];
-
-    console.log('fileName', fileName);
-    console.log('type', type);
-
     let data = new FormData();
-    data.append('image', {
-      name: fileName,
-      type: `image/png/${type}`,
-      uri:
-        Platform.OS === 'android'
-          ? photo.uri
-          : photo.uri.replace('file://', ''),
-    });
+    data.append('image', photo);
 
-    await postImage(data);
-  };
-
-  const postImage = async (data) => {
     await dispatch(editPicAction(data));
   };
 
@@ -74,7 +62,6 @@ const EditProfile = ({ route }) => {
         ) : (
           <Avatar rounded source={{ uri: imageUrl }} size="large" />
         )}
-
         <Icons.AntDesign
           name="camerao"
           size={23}
@@ -85,7 +72,7 @@ const EditProfile = ({ route }) => {
       <Formik
         initialValues={{
           bio: bio,
-          website: website.substring(8),
+          website: website && website.substring(8),
           location: location,
         }}
         onSubmit={(value) => {
@@ -115,6 +102,8 @@ const EditProfile = ({ route }) => {
             />
             <Button
               title="Edit"
+              loading={user.loading}
+              loadingProps={{ ...ActivityIndicator, color: 'red' }}
               onPress={props.handleSubmit}
               containerStyle={{ width: 100 }}
               TouchableComponent={TouchableOpacity}

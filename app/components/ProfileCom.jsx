@@ -19,8 +19,6 @@ const ProfileCom = () => {
   };
   useEffect(() => {
     getUserData();
-
-    return () => getUserData();
   }, []);
 
   return (
