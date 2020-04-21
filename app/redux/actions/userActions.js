@@ -115,10 +115,3 @@ export const editUserAction = (data) => async (dispatch) => {
     dispatch({ type: STOP_LOADING_USER });
   }
 };
-
-// const showAlert = (navigation) =>
-//   Alert.alert(
-//     'Register success',
-//     [{ text: 'OK', onPress: () => navigation.navigate('Profiles') }],
-//     { cancelable: false }
-//   );

@@ -8,6 +8,7 @@ import {
   UNLIKE_STREAM,
   POST_STREAM,
   DELETE_STREAM,
+  STOP_LOADING_DATA,
 } from '../reducer/dataReducer';
 import {
   LOADING_UI,
@@ -39,6 +40,18 @@ export const getStream = (streamId) => async (dispatch) => {
     console.log(error.response.data);
     dispatch({ type: SET_STREAM, payload: [] });
     dispatch({ type: STOP_LOADING_UI });
+  }
+};
+
+export const getUserDataAction = (userHandle) => async (dispatch) => {
+  try {
+    dispatch({ type: LOADING_DATA });
+    const req = await axios.get(`user/${userHandle}`);
+    const res = await req.data;
+    dispatch({ type: SET_STREAM, payload: res });
+  } catch (error) {
+    console.log(error.response.data);
+    dispatch({ type: STOP_LOADING_DATA });
   }
 };
 

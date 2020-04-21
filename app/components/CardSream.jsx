@@ -6,6 +6,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteAction } from '../redux/actions/dataActions';
 import { KomenBtn, LikeBtn } from './LikeBtn';
+import { useNavigation } from '@react-navigation/native';
 import Modal from './Modal';
 import momen from 'moment';
 const { width } = Dimensions.get('screen');
@@ -19,17 +20,15 @@ const CardSream = ({
   pressKomen,
   disabled,
   streamId,
-  navigation,
   createAt,
 }) => {
   const auth = useSelector((state) => state.user);
-  const data = useSelector((state) => state.data);
   const dispatch = useDispatch();
   const {
     autentikasi,
     credentials: { handle },
   } = auth;
-
+  const navigation = useNavigation();
   const [show, setShow] = useState(false);
 
   const deleteStream = async () => {
@@ -57,12 +56,16 @@ const CardSream = ({
     </Text>
   );
   const buttons = [{ element: BTN1 }, { element: BTN2 }];
-
+  const toUserData = () => {
+    navigation.navigate('UserData', { title });
+  };
   return (
     <View style={styles.container}>
       <View style={{ ...styles.wraperImg, flex: 0.6 }}>
         <Image style={styles.image} source={{ uri: images }} />
-        <Text style={styles.title}>{title}</Text>
+        <Text onPress={toUserData} style={styles.title}>
+          {title}
+        </Text>
         {deletBtn}
         <Modal isVisible={show} onBackdropPress={() => setShow(false)}>
           <ButtonGroup buttons={buttons} containerStyle={{ height: 50 }} />

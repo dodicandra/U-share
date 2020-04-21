@@ -37,8 +37,6 @@ const Home = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getStreams());
-
-    return getStreams;
   }, []);
 
   const renderCard = ({ item }) => (

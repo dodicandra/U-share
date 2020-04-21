@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screen/Home';
 import Komen from '../screen/Komen';
 import Notifikasi from '../screen/Notifikasi';
+import UserData from '../screen/UserData';
 
 const Stack = createStackNavigator();
 
@@ -13,6 +14,7 @@ const HomeStack = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Komens" component={Komen} />
       <Stack.Screen name="Notifikasi" component={Notifikasi} />
+      <Stack.Screen name="UserData" component={UserData} />
     </Stack.Navigator>
   );
 };

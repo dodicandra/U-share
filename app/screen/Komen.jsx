@@ -2,6 +2,7 @@ import * as Icons from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  BackHandler,
   Dimensions,
   FlatList,
   Image,
@@ -13,11 +14,12 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import CardSream from '../components/CardSream';
-import { getStream, komenSBT, getStreams } from '../redux/actions/dataActions';
+import { getStream, komenSBT } from '../redux/actions/dataActions';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 
-const Komen = ({ route, navigation }) => {
+const Komen = ({ route }) => {
   const { streamId, userImage, body } = route.params;
   const [koment, setKoment] = useState('');
   const dataR = useSelector((state) => state.data);
@@ -25,6 +27,18 @@ const Komen = ({ route, navigation }) => {
   const auth = useSelector((state) => state.user);
   const { stream } = dataR;
   const dispatch = useDispatch();
+
+  const navigation = useNavigation();
+
+  const backAction = () => navigation.navigate('Home');
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', () => backAction());
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+  }, []);
+
   useEffect(() => {
     dispatch(getStream(streamId));
   }, []);
