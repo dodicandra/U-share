@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   Dimensions,
   FlatList,
-  StatusBar,
+  RefreshControl,
   StyleSheet,
   View,
 } from 'react-native';
@@ -12,20 +12,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import AddStream from '../components/AddStream';
 import CardSream from '../components/CardSream';
 import Modal from '../components/Modal';
-import {
-  getStreams,
-  postAction,
-  getStream,
-} from '../redux/actions/dataActions';
-
-const { width } = Dimensions.get('screen');
+import { getStreams, postAction } from '../redux/actions/dataActions';
 
 const Home = ({ navigation }) => {
   const [show, setShow] = useState(false);
   const [post, setPost] = useState('');
+  const [refresh, setRefresh] = useState(false);
+
   const dataR = useSelector((state) => state.data);
   const UI = useSelector((state) => state.UI);
   const dispatch = useDispatch();
+
   const submitStream = async () => {
     const data = {
       body: post,
@@ -35,8 +32,18 @@ const Home = ({ navigation }) => {
     setShow(false);
   };
 
+  const getStream = async () => {
+    await dispatch(getStreams());
+  };
+
+  const onRefresh = useCallback(async () => {
+    setRefresh(true);
+    await getStream();
+    setRefresh(false);
+  }, [refresh]);
+
   useEffect(() => {
-    dispatch(getStreams());
+    getStream();
   }, []);
 
   const renderCard = ({ item }) => (
@@ -84,6 +91,9 @@ const Home = ({ navigation }) => {
           </Modal>
 
           <FlatList
+            refreshControl={
+              <RefreshControl onRefresh={onRefresh} refreshing={refresh} />
+            }
             maxToRenderPerBatch={10}
             centerContent={true}
             showsVerticalScrollIndicator={false}

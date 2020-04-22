@@ -30,10 +30,13 @@ const Komen = ({ route }) => {
 
   const navigation = useNavigation();
 
-  const backAction = () => navigation.navigate('Home');
+  const backAction = () => {
+    navigation.navigate('Home');
+    return true;
+  };
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => backAction());
+    BackHandler.addEventListener('hardwareBackPress', backAction);
 
     return () =>
       BackHandler.removeEventListener('hardwareBackPress', backAction);

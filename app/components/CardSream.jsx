@@ -56,6 +56,7 @@ const CardSream = ({
     </Text>
   );
   const buttons = [{ element: BTN1 }, { element: BTN2 }];
+
   const toUserData = () => {
     navigation.navigate('UserData', { title });
   };

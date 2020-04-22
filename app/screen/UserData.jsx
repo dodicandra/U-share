@@ -10,16 +10,18 @@ import {
 import { Text, Card, Avatar } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserDataAction } from '../redux/actions/dataActions';
+import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
 import CardSream from '../components/CardSream';
 
 const { width } = Dimensions.get('screen');
 
-const UserData = ({ route, navigation }) => {
+const UserData = ({ navigation }) => {
+  const route = useRoute();
   const { title } = route.params;
+
   const data = useSelector((state) => state.data);
   const { stream, user } = data.stream;
-  console.log(stream);
   const dispatch = useDispatch();
 
   const getDataUser = async () => {

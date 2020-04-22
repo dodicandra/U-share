@@ -1,3 +1,5 @@
+import { AdMobBanner } from 'expo-ads-admob';
+import * as Device from 'expo-device';
 import React, { useRef, useState } from 'react';
 import {
   ActivityIndicator,
@@ -5,7 +7,6 @@ import {
   StyleSheet,
   Text as Teks,
   View,
-  AsyncStorage,
 } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -13,8 +14,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Eyes from '../components/Eyes';
 import ProfileCom from '../components/ProfileCom';
 import { login, logout } from '../redux/actions/userActions';
-import { AdMobBanner } from 'expo-ads-admob';
-import * as Device from 'expo-device';
 
 const { width } = Dimensions.get('screen');
 const deviceId = Device.osBuildId;
@@ -27,8 +26,8 @@ const Profle = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
+  const emailRef = useRef();
+  const passwordRef = useRef();
   const shown = () => (
     <Eyes
       onPress={() =>
@@ -50,8 +49,6 @@ const Profle = ({ navigation }) => {
     await dispatch(login(data));
     emailRef.current.clear();
     passwordRef.current.clear();
-    setEmail('');
-    setPassword('');
   };
 
   return (
