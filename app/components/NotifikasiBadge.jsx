@@ -1,9 +1,9 @@
-import React from 'react';
-import { Badge } from 'react-native-elements';
 import * as Icons from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { Badge } from 'react-native-elements';
+import { useSelector } from 'react-redux';
 
 const NotifikasiBadge = () => {
   const user = useSelector((state) => state.user);
@@ -33,12 +33,12 @@ const NotifikasiBadge = () => {
   }
 
   return (
-    <TouchableOpacity>
+    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
       <TouchableOpacity onPress={() => navigation.navigate('Notifikasi')}>
         <Icons.MaterialCommunityIcons name="bell" size={22} />
         {IconNotifikasi}
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   );
 };
 

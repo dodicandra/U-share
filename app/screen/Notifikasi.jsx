@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import { ListItem, Text } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
 import { markNotifikasiAction } from '../redux/actions/userActions';
@@ -42,21 +42,27 @@ const Notifikasi = () => {
 
   return (
     <View style={{ backgroundColor: 'white', flex: 1 }}>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        maxToRenderPerBatch={10}
-        data={user.notifikasi}
-        renderItem={listItems}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {user.notifikasi && user.notifikasi.length > 0 ? (
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          maxToRenderPerBatch={10}
+          data={user.notifikasi}
+          renderItem={listItems}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      ) : (
+        <Text style={styles.teks}>Tidak ada notifikasi</Text>
+      )}
     </View>
   );
 };
 
-export default Notifikasi;
+const styles = StyleSheet.create({
+  teks: {
+    textAlign: 'center',
+    marginTop: 20,
+    color: '#acacac',
+  },
+});
 
-/* 
-item.type === 'komen'
-          ? 'telah Mengomentari post anda'
-          : 'telah Menyukai post anda'
-*/
+export default Notifikasi;

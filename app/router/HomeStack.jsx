@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 const HomeStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen key="Home" name="Home" component={Home} />
+      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Komens" component={Komen} />
       <Stack.Screen name="Notifikasi" component={Notifikasi} />
       <Stack.Screen name="UserData" component={UserData} />
