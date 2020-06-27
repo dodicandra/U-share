@@ -1,3 +1,4 @@
+// @flow
 export const SET_USER = 'SET_USER';
 export const SET_AUTH = 'SET_AUTH';
 export const SET_UNAUTH = 'SET_UNAUTH';
@@ -41,12 +42,6 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
       };
-    case SET_USER:
-      return {
-        ...state,
-        loading: false,
-        ...action.payload,
-      };
     case LIKE_STREAM:
       return {
         ...state,
@@ -62,11 +57,11 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         likes: state.likes.filter(
-          (like) => like.streamId !== action.payload.streamId
+          like => like.streamId !== action.payload.streamId,
         ),
       };
     case MARK_NOTIF:
-      state.notifikasi.forEach((not) => not.read == true);
+      state.notifikasi.forEach(not => not.read === true);
       return { ...state };
     default:
       return state;

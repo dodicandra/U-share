@@ -1,3 +1,4 @@
+// @flow
 import * as Icons from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -13,7 +14,7 @@ const EditProfile = ({ route }) => {
   const { imageUrl, bio, website, location } = route.params;
   const navigation = useNavigation();
 
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const pickImage = async () => {
@@ -26,11 +27,11 @@ const EditProfile = ({ route }) => {
       });
 
       if (!res.cancelled) {
-        let pathName = res.uri.split('/');
-        let fileName = pathName[pathName.length - 1];
-        let newData = {
+        const pathName = res.uri.split('/');
+        const fileName = pathName[pathName.length - 1];
+        const newData = {
           uri: res.uri,
-          type: `image/png`,
+          type: 'image/png',
           name: fileName,
         };
 
@@ -43,7 +44,7 @@ const EditProfile = ({ route }) => {
   };
 
   const formData = async (photo) => {
-    let data = new FormData();
+    const data = new FormData();
     data.append('image', photo);
 
     await dispatch(editPicAction(data));
@@ -71,18 +72,18 @@ const EditProfile = ({ route }) => {
       </View>
       <Formik
         initialValues={{
-          bio: bio,
+          bio,
           website: website && website.substring(8),
-          location: location,
+          location,
         }}
         onSubmit={(value) => {
           submitProfile(value);
         }}
       >
-        {(props) => (
+        {props => (
           <>
             <Input
-              multiline={true}
+              multiline
               placeholder="Bio..."
               onChangeText={props.handleChange('bio')}
               value={props.values.bio}

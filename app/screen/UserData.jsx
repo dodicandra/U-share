@@ -1,3 +1,4 @@
+// @flow
 import React, { useEffect } from 'react';
 import {
   StyleSheet,
@@ -9,9 +10,9 @@ import {
 } from 'react-native';
 import { Text, Card, Avatar } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUserDataAction } from '../redux/actions/dataActions';
 import { useRoute } from '@react-navigation/native';
 import moment from 'moment';
+import { getUserDataAction } from '../redux/actions/dataActions';
 import CardSream from '../components/CardSream';
 
 const { width } = Dimensions.get('screen');
@@ -20,7 +21,7 @@ const UserData = ({ navigation }) => {
   const route = useRoute();
   const { title } = route.params;
 
-  const data = useSelector((state) => state.data);
+  const data = useSelector(state => state.data);
   const { stream, user } = data.stream;
   const dispatch = useDispatch();
 
@@ -57,7 +58,7 @@ const UserData = ({ navigation }) => {
             <Avatar
               source={{ uri: user && user.imageUrl }}
               size="xlarge"
-              rounded={true}
+              rounded
               containerStyle={{ borderWidth: 4, borderColor: '#acacac' }}
               title={user && user.handle.substring(0, 2)}
             />
@@ -65,7 +66,9 @@ const UserData = ({ navigation }) => {
               {user && user.handle}
             </Text>
             <Text style={styles.createAt}>
-              Sejak {moment(user && user.createAt).format('DD-MMMM YYYY')}
+              Sejak
+              {' '}
+              {moment(user && user.createAt).format('DD-MMMM YYYY')}
             </Text>
           </Card>
           <FlatList

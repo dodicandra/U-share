@@ -1,3 +1,4 @@
+// @flow
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
@@ -8,7 +9,7 @@ import TopNavigator from './TopNavigator';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
-  const auth = useSelector((state) => state.user);
+  const auth = useSelector(state => state.user);
   return (
     <NavigationContainer>
       <Stack.Navigator

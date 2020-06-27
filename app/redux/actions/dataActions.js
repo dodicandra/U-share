@@ -1,3 +1,4 @@
+// @flow
 import axios from 'axios';
 import {
   SET_STREAM,
@@ -29,7 +30,7 @@ export const getStreams = () => async (dispatch) => {
 };
 
 // singel
-export const getStream = (streamId) => async (dispatch) => {
+export const getStream = streamId => async (dispatch) => {
   try {
     dispatch({ type: LOADING_UI });
     const response = await axios.get(`/stream/${streamId}`);
@@ -43,7 +44,7 @@ export const getStream = (streamId) => async (dispatch) => {
   }
 };
 
-export const getUserDataAction = (userHandle) => async (dispatch) => {
+export const getUserDataAction = userHandle => async (dispatch) => {
   try {
     dispatch({ type: LOADING_DATA });
     const req = await axios.get(`user/${userHandle}`);
@@ -69,7 +70,7 @@ export const komenSBT = (streamId, data) => async (dispatch) => {
   }
 };
 
-export const likeAction = (streamId) => async (dispatch) => {
+export const likeAction = streamId => async (dispatch) => {
   try {
     const response = await axios.get(`/stream/${streamId}/like`);
     const res = await response.data;
@@ -80,7 +81,7 @@ export const likeAction = (streamId) => async (dispatch) => {
   }
 };
 
-export const unlikeAction = (streamId) => async (dispatch) => {
+export const unlikeAction = streamId => async (dispatch) => {
   try {
     const response = await axios.get(`stream/${streamId}/unlike`);
     const res = await response.data;
@@ -90,7 +91,7 @@ export const unlikeAction = (streamId) => async (dispatch) => {
   }
 };
 
-export const postAction = (data) => async (dispatch) => {
+export const postAction = data => async (dispatch) => {
   try {
     dispatch({ type: LOADING_UI });
     const response = await axios.post('/stream', data);
@@ -102,7 +103,7 @@ export const postAction = (data) => async (dispatch) => {
   }
 };
 
-export const deleteAction = (streamId) => async (dispatch) => {
+export const deleteAction = streamId => async (dispatch) => {
   try {
     dispatch({ type: LOADING_UI });
     const response = await axios.delete(`/stream/${streamId}`);

@@ -1,3 +1,4 @@
+// @flow
 export const SET_STREAMS = 'SET_STREAMS';
 export const SET_STREAM = 'SET_STREAM';
 export const LIKE_STREAM = 'LIKE_STREAM';
@@ -15,7 +16,7 @@ const initialState = {
 };
 
 export const dataReducer = (state = initialState, action) => {
-  var index;
+  let index;
   switch (action.type) {
     case LOADING_DATA:
       return {
@@ -51,7 +52,7 @@ export const dataReducer = (state = initialState, action) => {
     case LIKE_STREAM:
     case UNLIKE_STREAM:
       index = state.streams.findIndex(
-        (stream) => stream.streamId === action.payload.streamId
+        stream => stream.streamId === action.payload.streamId,
       );
       state.streams[index] = action.payload;
       if (state.stream.streamId === action.payload.streamId) {
@@ -67,7 +68,7 @@ export const dataReducer = (state = initialState, action) => {
       };
     case DELETE_STREAM:
       index = state.streams.findIndex(
-        (stream) => stream.streamId === action.payload
+        stream => stream.streamId === action.payload,
       );
       state.streams.splice(index, 1);
       return {

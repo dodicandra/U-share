@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -8,15 +9,13 @@ import UserData from '../screen/UserData';
 
 const Stack = createStackNavigator();
 
-const HomeStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Komens" component={Komen} />
-      <Stack.Screen name="Notifikasi" component={Notifikasi} />
-      <Stack.Screen name="UserData" component={UserData} />
-    </Stack.Navigator>
-  );
-};
+const HomeStack = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name="Home" component={Home} />
+    <Stack.Screen name="Komens" component={Komen} />
+    <Stack.Screen name="Notifikasi" component={Notifikasi} />
+    <Stack.Screen name="UserData" component={UserData} />
+  </Stack.Navigator>
+);
 
 export default HomeStack;

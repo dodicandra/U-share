@@ -1,3 +1,4 @@
+// @flow
 import * as Icons from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
@@ -6,7 +7,7 @@ import { Badge } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 
 const NotifikasiBadge = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const { notifikasi } = user;
   const navigation = useNavigation();
   const Notif = ({ value }) => (
@@ -18,12 +19,11 @@ const NotifikasiBadge = () => {
   );
   let IconNotifikasi;
   if (notifikasi && notifikasi.length > 0) {
-    notifikasi.filter((not) => not.read === false).length > 0
+    notifikasi.filter(not => not.read === false).length > 0
       ? (IconNotifikasi = (
           <Notif
             value={
-              notifikasi &&
-              notifikasi.filter((not) => not.read === false).length
+              notifikasi && notifikasi.filter(not => not.read === false).length
             }
           />
         ))
@@ -43,10 +43,3 @@ const NotifikasiBadge = () => {
 };
 
 export default NotifikasiBadge;
-/* 
-<Badge
-            status="error"
-            containerStyle={{ position: 'absolute', right: -12 }}
-            value={user.notifikasi && user.notifikasi.length}
-          />
-*/

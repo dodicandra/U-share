@@ -1,3 +1,4 @@
+// @flow
 import * as Icons from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
 import {
@@ -13,18 +14,18 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import CardSream from '../components/CardSream';
 import { getStream, komenSBT } from '../redux/actions/dataActions';
-import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('screen');
 
 const Komen = ({ route }) => {
   const { streamId, userImage, body } = route.params;
   const [koment, setKoment] = useState('');
-  const dataR = useSelector((state) => state.data);
-  const UI = useSelector((state) => state.UI);
-  const auth = useSelector((state) => state.user);
+  const dataR = useSelector(state => state.data);
+  const UI = useSelector(state => state.UI);
+  const auth = useSelector(state => state.user);
   const { stream } = dataR;
   const dispatch = useDispatch();
 
@@ -38,8 +39,7 @@ const Komen = ({ route }) => {
   useEffect(() => {
     BackHandler.addEventListener('hardwareBackPress', backAction);
 
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    return () => BackHandler.removeEventListener('hardwareBackPress', backAction);
   }, []);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const Komen = ({ route }) => {
       <CardSream
         images={userImage}
         title={stream.userHandle}
-        disabled={true}
+        disabled
         body={body}
       />
       {UI.loading ? (
@@ -89,14 +89,14 @@ const Komen = ({ route }) => {
             maxToRenderPerBatch={10}
             data={stream.komen}
             renderItem={komenItem}
-            keyExtractor={(item) => item.createAt}
+            keyExtractor={item => item.createAt}
           />
           <View style={styles.inputWraper}>
             <TextInput
-              multiline={true}
+              multiline
               style={styles.input}
               placeholder="Lo mau ngomong apa ?..."
-              onChangeText={(teks) => setKoment(teks)}
+              onChangeText={teks => setKoment(teks)}
             />
             <TouchableOpacity onPress={submitKomen}>
               <Icons.FontAwesome style={styles.icons} name="send" size={25} />

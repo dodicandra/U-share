@@ -1,19 +1,19 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+// @flow
 import * as Icons from '@expo/vector-icons';
+import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { likeAction, unlikeAction } from '../redux/actions/dataActions';
 
 export const LikeBtn = ({ streamId, navigation }) => {
-  const auth = useSelector((state) => state.user);
-  const UI = useSelector((state) => state.UI);
+  const auth = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const likedStream = () => {
-    if (auth.likes && auth.likes.find((like) => like.streamId === streamId))
+    if (auth.likes && auth.likes.find(like => like.streamId === streamId)) {
       return true;
-    else return false;
+    }
+    return false;
   };
 
   const likeStream = () => {
@@ -39,6 +39,6 @@ export const LikeBtn = ({ streamId, navigation }) => {
   );
 };
 
-export const KomenBtn = () => {
-  return <Icons.MaterialIcons color="#2961ba" name="comment" size={20} />;
-};
+export const KomenBtn = () => (
+  <Icons.MaterialIcons color="#2961ba" name="comment" size={20} />
+);

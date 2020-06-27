@@ -1,3 +1,4 @@
+// @flow
 import React, { useCallback, useState } from 'react';
 import {
   ActivityIndicator,
@@ -13,48 +14,41 @@ import { registerAction } from '../redux/actions/userActions';
 
 const { width } = Dimensions.get('screen');
 
-const Register = ({ navigation }) => {
+const Register = () => {
   const [hiden, setHiden] = useState({ hides: true });
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [konfirPass, setKomfirPass] = useState('');
   const [name, setName] = useState('');
 
-  const UI = useSelector((state) => state.UI);
-  const auth = useSelector((state) => state.user);
+  const UI = useSelector(state => state.UI);
+  const auth = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  const shoAlert = useCallback(() =>
-    Alert.alert('Register sukses,silahkan Login')
-  );
-
-  const clearForm = useCallback(() => {
-    setEmail('');
-    setPassword('');
-    setName('');
+  const shoAlert = useCallback(() => {
+    Alert.alert('Register sukses,silahkan Login');
   });
 
   const show = () => (
     <Eyes
-      onPress={() =>
+      onPress={() => {
         setHiden({
           ...hiden,
           hides: !hiden.hides,
-        })
-      }
+        });
+      }}
       eyeOpen={hiden.hides}
     />
   );
 
   const handleRegister = async () => {
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
       confirmPassword: konfirPass,
       handle: name,
     };
     await dispatch(registerAction(data, shoAlert));
-    // shoAlert();
   };
 
   return (
@@ -63,26 +57,26 @@ const Register = ({ navigation }) => {
         <Input
           placeholder="Email"
           keyboardType="email-address"
-          onChangeText={(teks) => setEmail(teks)}
+          onChangeText={teks => setEmail(teks)}
           errorMessage={UI.errors && UI.errors.email}
         />
         <Input
           placeholder="Password"
           secureTextEntry={hiden.hides}
           rightIcon={show}
-          onChangeText={(teks) => setPassword(teks)}
+          onChangeText={teks => setPassword(teks)}
           errorMessage={UI.errors && UI.errors.password}
         />
         <Input
           placeholder="Ulangi Password"
           secureTextEntry={hiden.hides}
           rightIcon={show}
-          onChangeText={(teks) => setKomfirPass(teks)}
+          onChangeText={teks => setKomfirPass(teks)}
           errorMessage={UI.errors && UI.errors.confirmPassword}
         />
         <Input
           placeholder="User Name"
-          onChangeText={(teks) => setName(teks)}
+          onChangeText={teks => setName(teks)}
           errorMessage={UI.errors && UI.errors.handle}
         />
         <Button

@@ -1,3 +1,4 @@
+// @flow
 import * as Icons from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect } from 'react';
@@ -9,8 +10,8 @@ import { getUser } from '../redux/actions/userActions';
 const { width } = Dimensions.get('screen');
 
 const ProfileCom = () => {
-  const auth = useSelector((state) => state.user);
-  const UI = useSelector((state) => state.UI);
+  const auth = useSelector(state => state.user);
+  const UI = useSelector(state => state.UI);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -29,13 +30,12 @@ const ProfileCom = () => {
           containerStyle={styles.avaContainer}
           source={{ uri: auth.credentials.imageUrl }}
           size="xlarge"
-          rounded={true}
-          showEditButton={true}
+          rounded
+          showEditButton
           title={
             auth.credentials.handle && auth.credentials.handle.substring(0, 2)
           }
-          onEditPress={() =>
-            navigation.navigate('EditProfile', auth.credentials)
+          onEditPress={() => navigation.navigate('EditProfile', auth.credentials)
           }
         />
         <View
@@ -56,7 +56,8 @@ const ProfileCom = () => {
           </Text>
           <Divider style={{ backgroundColor: '#acacac' }} />
           <Text style={{ textAlign: 'center', ...styles.textMargin }}>
-            <Icons.Entypo name="location" size={20} />{' '}
+            <Icons.Entypo name="location" size={20} />
+{' '}
             {auth.credentials.location}
           </Text>
           <Divider style={{ backgroundColor: '#acacac' }} />
@@ -66,7 +67,9 @@ const ProfileCom = () => {
           </View>
           <Divider style={{ backgroundColor: '#acacac' }} />
           <Text style={{ textAlign: 'center', ...styles.textMargin }}>
-            <Icons.Feather name="chrome" size={20} /> {auth.credentials.website}
+            <Icons.Feather name="chrome" size={20} />
+{' '}
+{auth.credentials.website}
           </Text>
           <Divider style={{ backgroundColor: '#acacac' }} />
         </View>
@@ -106,9 +109,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 40,
-  },
-  icons: {
-    marginRight: 40,
   },
 });
 

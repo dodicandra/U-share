@@ -1,3 +1,4 @@
+// @flow
 import { AdMobBanner } from 'expo-ads-admob';
 import * as Device from 'expo-device';
 import React, { useRef, useState } from 'react';
@@ -19,8 +20,8 @@ const { width } = Dimensions.get('screen');
 const deviceId = Device.osBuildId;
 
 const Profle = ({ navigation }) => {
-  const auth = useSelector((state) => state.user);
-  const UI = useSelector((state) => state.UI);
+  const auth = useSelector(state => state.user);
+  const UI = useSelector(state => state.UI);
   const dispatch = useDispatch();
   const [hiden, setHiden] = useState({ hides: true });
   const [email, setEmail] = useState('');
@@ -30,11 +31,10 @@ const Profle = ({ navigation }) => {
   const passwordRef = useRef();
   const shown = () => (
     <Eyes
-      onPress={() =>
-        setHiden({
-          ...hiden,
-          hides: !hiden.hides,
-        })
+      onPress={() => setHiden({
+        ...hiden,
+        hides: !hiden.hides,
+      })
       }
       eyeOpen={hiden.hides}
     />
@@ -42,8 +42,8 @@ const Profle = ({ navigation }) => {
 
   const handleLogin = async () => {
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
 
     await dispatch(login(data));
@@ -75,7 +75,7 @@ const Profle = ({ navigation }) => {
                 <AdMobBanner
                   bannerSize="smartBannerLandscape"
                   adUnitID="ca-app-pub-8960982869518476/3907988403"
-                  servePersonalizedAds={true}
+                  servePersonalizedAds
                   testID={deviceId}
                 />
               </View>
@@ -92,14 +92,14 @@ const Profle = ({ navigation }) => {
               ref={emailRef}
               autoCapitalize="none"
               keyboardType="email-address"
-              onChangeText={(tek) => setEmail(tek)}
+              onChangeText={tek => setEmail(tek)}
               placeholder="Email"
               errorMessage={UI.errors && UI.errors.email}
             />
             <Input
               ref={passwordRef}
               autoCapitalize="none"
-              onChangeText={(tek) => setPassword(tek)}
+              onChangeText={tek => setPassword(tek)}
               secureTextEntry={hiden.hides}
               placeholder="Password"
               rightIcon={shown}
@@ -126,7 +126,7 @@ const Profle = ({ navigation }) => {
                 bannerSize="smartBannerLandscape"
                 adUnitID="ca-app-pub-8960982869518476/3907988403"
                 testID={deviceId}
-                servePersonalizedAds={true}
+                servePersonalizedAds
               />
             </View>
           </View>

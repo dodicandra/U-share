@@ -1,16 +1,32 @@
-import React from 'react';
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+// @flow
 import * as Icons from '@expo/vector-icons';
+import React from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import Animated, { Extrapolate, interpolate } from 'react-native-reanimated';
 import { useSelector } from 'react-redux';
 
-const AddStream = ({ style, onPress }) => {
-  const auth = useSelector((state) => state.user);
+const AnimatedTouch = Animated.createAnimatedComponent(TouchableOpacity);
+interface Props {
+  onPress: (event: GestureResponderEvent) => void;
+  y: Animated.Node<number>;
+}
+
+const AddStream: React.FC<Props> = ({ onPress, y }) => {
+  const auth = useSelector(state => state.user);
+
+  const scale = interpolate(y, {
+    inputRange: [0, 100],
+    outputRange: [1, 0],
+    extrapolateRight: Extrapolate.CLAMP,
+  });
+
   return auth.autentikasi !== null ? (
-    <View style={{ ...styles.container, ...style }}>
-      <TouchableOpacity onPress={onPress}>
-        <Icons.Feather name="plus" color="white" size={27} />
-      </TouchableOpacity>
-    </View>
+    <AnimatedTouch
+      style={[styles.container, { transform: [{ scale }] }]}
+      onPress={onPress}
+    >
+      <Icons.Feather name="plus" color="white" size={27} />
+    </AnimatedTouch>
   ) : null;
 };
 
@@ -23,6 +39,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    zIndex: 100,
   },
 });
 

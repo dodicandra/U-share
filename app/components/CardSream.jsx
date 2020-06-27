@@ -1,14 +1,16 @@
+// @flow
 import * as Icons from '@expo/vector-icons';
 import React, { useState } from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, View } from 'react-native';
 import { ButtonGroup, Text } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import momen from 'moment';
 import { deleteAction } from '../redux/actions/dataActions';
 import { KomenBtn, LikeBtn } from './LikeBtn';
-import { useNavigation } from '@react-navigation/native';
 import Modal from './Modal';
-import momen from 'moment';
+
 const { width } = Dimensions.get('screen');
 
 const CardSream = ({
@@ -22,7 +24,7 @@ const CardSream = ({
   streamId,
   createAt,
 }) => {
-  const auth = useSelector((state) => state.user);
+  const auth = useSelector(state => state.user);
   const dispatch = useDispatch();
   const {
     autentikasi,
@@ -36,8 +38,7 @@ const CardSream = ({
     setShow(false);
   };
 
-  const deletBtn =
-    autentikasi !== null && handle === title ? (
+  const deletBtn = autentikasi !== null && handle === title ? (
       <View style={styles.Trash}>
         <TouchableOpacity onPress={() => setShow(true)}>
           <Icons.Entypo name="trash" color="red" size={20} />
@@ -82,12 +83,20 @@ const CardSream = ({
           <View style={styles.wraperLike}>
             <View style={{ ...styles.row, ...styles.center }}>
               <LikeBtn navigation={navigation} streamId={streamId} />
-              <Text style={styles.teks}>{like} Suka</Text>
+              <Text style={styles.teks}>
+{like}
+{' '}
+Suka
+              </Text>
             </View>
             <TouchableOpacity onPress={pressKomen}>
               <View style={{ ...styles.row, ...styles.center }}>
                 <KomenBtn />
-                <Text style={styles.teks}>{comment} Komen</Text>
+                <Text style={styles.teks}>
+{comment}
+{' '}
+Komen
+                </Text>
               </View>
             </TouchableOpacity>
             <View>
@@ -131,9 +140,6 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-  },
-  wraperBody: {
-    backgroundColor: 'red',
   },
   wraperLike: {
     flexDirection: 'row',

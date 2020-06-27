@@ -1,18 +1,19 @@
+// @flow
 import React, { useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { ListItem, Text } from 'react-native-elements';
 import { useSelector, useDispatch } from 'react-redux';
-import { markNotifikasiAction } from '../redux/actions/userActions';
 import moment from 'moment';
+import { markNotifikasiAction } from '../redux/actions/userActions';
 
 const Notifikasi = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const onOpen = () => {
     const unRead = user.notifikasi
-      .filter((not) => !not.read)
-      .map((not) => not.notifikasiId);
+      .filter(not => !not.read)
+      .map(not => not.notifikasiId);
     dispatch(markNotifikasiAction(unRead));
   };
 
@@ -21,7 +22,7 @@ const Notifikasi = () => {
       title={item.sender}
       titleStyle={{ fontWeight: 'bold' }}
       bottomDivider
-      subtitle={
+      subtitle={(
         <View style={{ flexDirection: 'row' }}>
           {item.type === 'like' ? (
             <Text>Telah Menyukai post anda</Text>
@@ -32,7 +33,7 @@ const Notifikasi = () => {
             {moment(item.createAt).fromNow()}
           </Text>
         </View>
-      }
+      )}
     />
   );
 

@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import { Badge } from 'react-native-elements';
@@ -5,7 +6,7 @@ import * as Icons from '@expo/vector-icons';
 import { useSelector } from 'react-redux';
 
 const Header = ({ onPress }) => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
 
   return (
     <View style={styles.container}>
